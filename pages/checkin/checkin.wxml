@@ -1,0 +1,247 @@
+<view class="container">
+  <!-- ==================== 顶部 Hero 区域 ==================== -->
+  <view class="hero-area">
+    <view class="hero-bg-deco">
+      <view class="blob blob-1"></view>
+      <view class="blob blob-2"></view>
+    </view>
+
+    <view class="hero-content">
+      <!-- 日期与问候 -->
+      <view class="date-row">
+        <view class="date-group">
+          <text class="date-text">{{todayDate}}</text>
+          <text class="weekday-text">{{weekday}}</text>
+        </view>
+        <view class="header-actions">
+          <view class="tips-entry" bindtap="showTipsModal" wx:if="{{plans.length > 0}}">
+            <text class="tips-icon">💡</text>
+            <text class="tips-label">锦囊</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 鼓励语 -->
+      <view class="motivation-block" wx:if="{{plans.length > 0}}">
+        <text class="motivation-text">{{motivationalMsg}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ==================== 计划切换器 ==================== -->
+  <view class="plan-switcher" wx:if="{{plans.length > 0}}">
+    <view class="picker-row">
+      <picker bindchange="onPlanPickerChange" value="{{currentPlanIndex}}" range="{{plans}}" range-key="goal" class="picker-full">
+        <view class="picker-display">
+          <view class="picker-label-group">
+            <text class="picker-label">当前计划</text>
+            <text class="picker-value">{{plans[currentPlanIndex].goal}}</text>
+          </view>
+          <text class="picker-arrow">▼</text>
+        </view>
+      </picker>
+      <view class="plan-delete-btn" bindtap="deleteCurrentPlan">
+        <text class="delete-icon-text">🗑️</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ==================== 进度卡片 ==================== -->
+  <view class="progress-card" wx:if="{{plans.length > 0}}">
+    <view class="progress-header">
+      <text class="progress-title">今日进度</text>
+      <text class="progress-fraction">{{currentCompletedCount}}/{{totalCount}}</text>
+    </view>
+
+    <!-- 进度条 -->
+    <view class="progress-track">
+      <view class="progress-fill" style="width: {{progressPercent}}%;"></view>
+      <!-- 进度节点 -->
+      <view class="progress-dot {{progressPercent >= 25 ? 'dot-active' : ''}}" style="left: 25%;"></view>
+      <view class="progress-dot {{progressPercent >= 50 ? 'dot-active' : ''}}" style="left: 50%;"></view>
+      <view class="progress-dot {{progressPercent >= 75 ? 'dot-active' : ''}}" style="left: 75%;"></view>
+      <view class="progress-dot {{progressPercent >= 100 ? 'dot-active' : ''}}" style="left: 100%;"></view>
+    </view>
+
+    <!-- 百分比数字 -->
+    <view class="progress-percent-row">
+      <text class="progress-percent-num">{{progressPercent}}%</text>
+      <text class="progress-percent-label" wx:if="{{progressPercent === 100}}">全勤达成</text>
+      <text class="progress-percent-label" wx:elif="{{progressPercent >= 50}}">过半</text>
+      <text class="progress-percent-label" wx:else>进行中</text>
+    </view>
+  </view>
+
+  <!-- ==================== 任务列表 ==================== -->
+  <view class="task-section" wx:if="{{plans.length > 0}}">
+    <view class="section-header">
+      <text class="section-title">打卡任务</text>
+      <text class="section-count">{{tasksArray.length}}项</text>
+    </view>
+
+    <view class="task-list">
+      <checkbox-group bindchange="checkboxChange">
+        <block wx:for="{{tasksArray}}" wx:key="id">
+          <view class="task-swipe-wrapper">
+            <!-- 滑动内容层 -->
+            <view
+              class="task-swipe-content {{item.done ? 'task-done' : ''}}"
+              style="transform: translateX({{item.translateX}}rpx);"
+              bindtouchstart="onTaskTouchStart"
+              bindtouchmove="onTaskTouchMove"
+              bindtouchend="onTaskTouchEnd"
+              data-id="{{item.id}}"
+            >
+              <label class="task-label">
+                <checkbox value="{{item.id}}" checked="{{item.done}}" color="#10B981" class="task-checkbox" />
+                <text class="task-name {{item.done ? 'done-text' : ''}}">{{item.text}}</text>
+              </label>
+
+              <view class="task-swipe-hint">
+                <text class="hint-text">左滑删除</text>
+              </view>
+            </view>
+
+            <!-- 删除按钮（隐藏在右侧） -->
+            <view class="task-delete-btn" data-id="{{item.id}}" bindtap="swipeDeleteTask">
+              <text class="delete-btn-text">删除</text>
+            </view>
+          </view>
+        </block>
+      </checkbox-group>
+    </view>
+
+    <!-- 空任务提示 -->
+    <view class="empty-tasks" wx:if="{{tasksArray.length === 0}}">
+      <text class="empty-tasks-icon">📋</text>
+      <text class="empty-tasks-text">还没有打卡任务</text>
+      <text class="empty-tasks-hint">点击下方按钮添加</text>
+    </view>
+  </view>
+
+  <!-- ==================== 空计划状态 ==================== -->
+  <view class="empty-state" wx:if="{{plans.length === 0}}">
+    <view class="empty-card">
+      <view class="empty-illustration">
+        <text class="empty-emoji">🌱</text>
+      </view>
+      <text class="empty-title">还没有学习计划</text>
+      <text class="empty-desc">去首页让 AI 帮你生成专属学习计划，\n然后来这里打卡吧</text>
+      <view class="empty-cta" bindtap="goToIndex">
+        <text>去首页生成计划</text>
+        <text class="cta-arrow">→</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ==================== 底部操作区 ==================== -->
+  <view class="bottom-bar" wx:if="{{plans.length > 0}}">
+    <view class="bottom-btn bottom-btn-tips" bindtap="showTipsModal">
+      <text class="bottom-btn-icon">💡</text>
+      <text>学习锦囊</text>
+    </view>
+    <view class="bottom-btn bottom-btn-add" bindtap="showAddTaskModal">
+      <text class="bottom-btn-icon">+</text>
+      <text>添加任务</text>
+    </view>
+  </view>
+
+  <!-- 底部安全区占位 -->
+  <view class="safe-bottom"></view>
+
+  <!-- ==================== 添加任务弹窗 ==================== -->
+  <view class="modal-mask" wx:if="{{isAddingTask}}" bindtap="cancelAddTask">
+    <view class="modal-sheet" catchtap="stopBubble">
+      <view class="modal-handle"></view>
+      <view class="modal-sheet-title">添加新任务</view>
+      <view class="modal-input-wrapper">
+        <input
+          class="modal-input"
+          placeholder="输入任务内容，如：背20个单词"
+          placeholder-class="input-placeholder"
+          value="{{newTaskText}}"
+          bindinput="onNewTaskInput"
+          auto-focus="{{true}}"
+          bindconfirm="confirmAddTask"
+        />
+      </view>
+      <view class="modal-sheet-actions">
+        <view class="sheet-btn sheet-btn-cancel" bindtap="cancelAddTask">取消</view>
+        <view class="sheet-btn sheet-btn-confirm" bindtap="confirmAddTask">确认添加</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- ==================== 学习锦囊弹窗 ==================== -->
+  <view class="modal-mask" wx:if="{{isShowingTips}}" bindtap="closeTipsModal">
+    <view class="tips-panel" catchtap="stopBubble">
+      <view class="tips-panel-header">
+        <view class="tips-panel-title-row">
+          <text class="tips-panel-icon">💡</text>
+          <text class="tips-panel-title">学习锦囊</text>
+        </view>
+        <view class="tips-panel-close" bindtap="closeTipsModal">
+          <text>✕</text>
+        </view>
+      </view>
+
+      <scroll-view class="tips-panel-body" scroll-y enhanced show-scrollbar="{{false}}">
+        <block wx:if="{{currentFullPlan}}">
+          <!-- 本周任务 -->
+          <view class="tip-block" wx:if="{{currentFullPlan.weekly_tasks && currentFullPlan.weekly_tasks.length > 0}}">
+            <view class="tip-block-head">
+              <view class="tip-block-dot"></view>
+              <text class="tip-block-title">本周任务</text>
+            </view>
+            <view class="tip-task-list">
+              <view class="tip-task-row" wx:for="{{currentFullPlan.weekly_tasks}}" wx:key="*this">
+                <text class="tip-task-num">{{index + 1}}</text>
+                <text class="tip-task-content">{{item}}</text>
+              </view>
+            </view>
+          </view>
+
+          <!-- 学习建议 -->
+          <view class="tip-block" wx:if="{{currentFullPlan.suggestions}}">
+            <view class="tip-block-head">
+              <view class="tip-block-dot"></view>
+              <text class="tip-block-title">学习建议</text>
+            </view>
+            <view class="tip-suggestion-box">
+              <text class="tip-suggestion-text">{{currentFullPlan.suggestions}}</text>
+            </view>
+          </view>
+
+          <!-- 推荐资源 -->
+          <view class="tip-block" wx:if="{{currentFullPlan.bilibili_resources && currentFullPlan.bilibili_resources.length > 0}}">
+            <view class="tip-block-head">
+              <view class="tip-block-dot"></view>
+              <text class="tip-block-title">B站推荐</text>
+            </view>
+            <view class="tip-resource-list">
+              <view class="tip-resource-card" wx:for="{{currentFullPlan.bilibili_resources}}" wx:key="title">
+                <view class="tip-resource-top">
+                  <view class="tip-resource-badge {{item.type === 'creator' ? 'badge-creator' : 'badge-video'}}">
+                    <text>{{item.type === 'creator' ? 'UP主' : '视频'}}</text>
+                  </view>
+                  <view class="tip-resource-copy" data-url="{{item.url}}" bindtap="copyLink">
+                    <text>复制链接</text>
+                  </view>
+                </view>
+                <text class="tip-resource-name">{{item.title}}</text>
+                <text class="tip-resource-author" wx:if="{{item.author}}">{{item.author}}</text>
+                <text class="tip-resource-reason">{{item.reason}}</text>
+              </view>
+            </view>
+          </view>
+        </block>
+
+        <block wx:else>
+          <view class="tip-empty">
+            <text>该计划暂无学习锦囊，可能是旧版本数据</text>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+</view>

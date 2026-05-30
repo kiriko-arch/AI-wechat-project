@@ -1,0 +1,33 @@
+<view class="container">
+  <view class="section-header">
+    <view class="section-title">历史学习记录</view>
+    <view class="clear-all-btn" bindtap="clearAllRecords" wx:if="{{historyRecords.length > 0}}">清空</view>
+  </view>
+  <view class="history-list">
+    <!-- 存在历史记录时渲染列表 -->
+    <block wx:if="{{historyRecords.length > 0}}">
+      <view class="history-item" wx:for="{{historyRecords}}" wx:key="index">
+        <!-- 日期与目标 -->
+        <view class="history-header">
+          <view class="header-left">
+            <text class="date">{{item.date}}</text>
+            <text class="goal">🎯 {{item.goal}}</text>
+          </view>
+          <view class="delete-btn" data-index="{{index}}" bindtap="deleteRecord">删除</view>
+        </view>
+        <!-- 完成的任务列表 -->
+        <view class="completed-tasks">
+          <view class="task" wx:for="{{item.completedTasks}}" wx:for-item="task" wx:key="*this">
+            <text class="dot">✓</text> {{task}}
+          </view>
+          <view class="no-task" wx:if="{{item.completedTasks.length === 0}}">暂无完成任务</view>
+        </view>
+      </view>
+    </block>
+    
+    <!-- 空状态提示 -->
+    <view class="empty-tip" wx:else>
+      暂无历史记录，快去首页生成专属计划吧~
+    </view>
+  </view>
+</view>

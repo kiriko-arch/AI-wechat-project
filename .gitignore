@@ -1,0 +1,8 @@
+node_modules/
+.agents/
+skills-lock.json
+project.private.config.json
+error1.png
+error2.png
+cloudfunctions/*/node_modules/
+cloudfunctions/*/package-lock.json

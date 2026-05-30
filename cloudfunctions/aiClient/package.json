@@ -1,0 +1,10 @@
+{
+  "name": "aiClient",
+  "version": "1.0.0",
+  "description": "公共的 AI 模型请求模块",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.15.1",
+    "wx-server-sdk": "~2.6.3"
+  }
+}

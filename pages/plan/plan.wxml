@@ -1,0 +1,67 @@
+<view class="container">
+  <block wx:if="{{!planObj}}">
+    <view class="page-title">学习计划页</view>
+    <view class="tip-text" wx:if="{{!aiPlan}}">这里将展示 AI 生成的学习计划。</view>
+    <text class="plan-content" wx:else>{{aiPlan}}</text>
+  </block>
+
+  <block wx:else>
+    <block wx:if="{{planObj.error}}">
+      <view class="page-title" style="color:red;">{{planObj.error}}</view>
+      <view class="plan-content">{{planObj.details}}</view>
+    </block>
+
+    <block wx:else>
+      <view class="plan-title">{{planObj.title}}</view>
+
+      <view class="section">
+        <view class="section-title">每日任务</view>
+        <view class="task-item" wx:for="{{planObj.daily_tasks}}" wx:key="*this">
+          <text class="task-index">{{index + 1}}.</text>
+          <text class="task-text">{{item}}</text>
+        </view>
+      </view>
+
+      <view class="section">
+        <view class="section-title">本周任务</view>
+        <view class="task-item" wx:for="{{planObj.weekly_tasks}}" wx:key="*this">
+          <text class="task-index">{{index + 1}}.</text>
+          <text class="task-text">{{item}}</text>
+        </view>
+      </view>
+
+      <view class="section" wx:if="{{planObj.bilibili_resources.length > 0}}">
+        <view class="section-title">哔哩哔哩推荐</view>
+        <view class="resource-card" wx:for="{{planObj.bilibili_resources}}" wx:key="title">
+          <view class="resource-top">
+            <text class="resource-type">{{item.type === 'creator' ? '推荐博主' : '推荐视频'}}</text>
+            <button
+              class="copy-btn"
+              size="mini"
+              plain="true"
+              data-url="{{item.url}}"
+              bindtap="copyLink"
+            >
+              复制链接
+            </button>
+          </view>
+          <view class="resource-title">{{item.title}}</view>
+          <view class="resource-author" wx:if="{{item.author}}">UP主：{{item.author}}</view>
+          <view class="resource-reason">{{item.reason}}</view>
+          <text class="resource-url" selectable="{{true}}" wx:if="{{item.url}}">{{item.url}}</text>
+        </view>
+      </view>
+
+      <view class="section" wx:if="{{planObj.suggestions}}">
+        <view class="section-title">学习建议</view>
+        <text class="suggestion-text">{{planObj.suggestions}}</text>
+      </view>
+
+      <!-- 底部操作栏（跟随文档流，滑动到底部才显示） -->
+      <view class="action-bar-inline" wx:if="{{isNew}}">
+        <view class="btn-discard" bindtap="discardPlan">删除</view>
+        <view class="btn-apply" bindtap="applyPlan">应用</view>
+      </view>
+    </block>
+  </block>
+</view>

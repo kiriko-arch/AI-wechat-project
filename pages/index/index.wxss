@@ -1,0 +1,386 @@
+/* --- 全局与重置 --- */
+page {
+  background-color: #F8FAFC; /* 更高级的冷白灰底色 */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+/* --- 1. 沉浸式 Mesh Gradient Hero 区域 --- */
+.hero-bg {
+  position: relative;
+  width: 100%;
+  /* 回归干净的极简白/极浅绿底色 */
+  background: linear-gradient(180deg, #F0FDF4 0%, #F8FAFC 100%);
+  padding: 100rpx 40rpx 140rpx 40rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* 动态模糊光球 */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  z-index: 1;
+}
+
+.blob-1 {
+  width: 300rpx;
+  height: 300rpx;
+  /* 极度淡化的青绿色光晕，作为点缀而非主色 */
+  background: #A7F3D0;
+  top: -50rpx;
+  right: -50rpx;
+  opacity: 0.3;
+}
+
+.blob-2 {
+  width: 250rpx;
+  height: 250rpx;
+  background: #D1FAE5;
+  bottom: 40rpx;
+  left: -40rpx;
+  opacity: 0.4;
+}
+
+.blob-3 {
+  width: 200rpx;
+  height: 200rpx;
+  background: #6EE7B7;
+  bottom: -60rpx;
+  right: 100rpx;
+  opacity: 0.2;
+}
+
+/* 青柠图案纯 CSS 实现 */
+.lemon-decoration {
+  position: absolute;
+  right: -40rpx;
+  top: -20rpx;
+  width: 200rpx;
+  height: 200rpx;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.lemon-circle {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  border: 12rpx solid #10B981; /* 翠绿边框 */
+  background-color: transparent;
+  position: absolute;
+  top: 40rpx;
+  right: 40rpx;
+}
+
+.lemon-circle::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: 
+    linear-gradient(0deg, transparent 48%, #10B981 48%, #10B981 52%, transparent 52%),
+    linear-gradient(90deg, transparent 48%, #10B981 48%, #10B981 52%, transparent 52%),
+    linear-gradient(45deg, transparent 48%, #10B981 48%, #10B981 52%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, #10B981 48%, #10B981 52%, transparent 52%);
+}
+
+.lemon-leaf {
+  width: 60rpx;
+  height: 40rpx;
+  background-color: #10B981;
+  border-radius: 0 40rpx 0 40rpx;
+  position: absolute;
+  top: 20rpx;
+  right: 120rpx;
+  transform: rotate(-15deg);
+}
+
+.header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 50rpx;
+}
+
+.greeting {
+  font-size: 68rpx;
+  font-weight: 900;
+  color: #111827; /* 深色文字适应浅色背景 */
+  display: block;
+  margin-bottom: 12rpx;
+  letter-spacing: 2rpx;
+}
+
+.sub-greeting {
+  font-size: 32rpx;
+  color: #10B981; /* 翠绿色的副标题，呼应青柠主题 */
+  font-weight: 600;
+}
+
+/* --- 2. 玻璃拟态状态看板 --- */
+.glass-status-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.6); /* 浅色半透明背景 */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 2rpx solid #ffffff;
+  border-radius: 40rpx;
+  padding: 40rpx;
+  box-shadow: 0 16rpx 40rpx rgba(16, 185, 129, 0.06);
+}
+
+.status-item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-icon {
+  font-size: 56rpx;
+  margin-right: 20rpx;
+  filter: drop-shadow(0 4rpx 8rpx rgba(16,185,129,0.1));
+}
+
+.status-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.status-val {
+  font-size: 40rpx;
+  font-weight: 900;
+  color: #111827; /* 深色数据 */
+  line-height: 1.1;
+  margin-bottom: 4rpx;
+}
+
+.status-label {
+  font-size: 24rpx;
+  color: #6B7280; /* 灰色标签 */
+  font-weight: 500;
+}
+
+.status-divider {
+  width: 2rpx;
+  height: 80rpx;
+  background-color: rgba(16, 185, 129, 0.15); /* 浅绿色分割线 */
+}
+
+/* --- 3. 内容区与 Bento Grid --- */
+.content-wrapper {
+  padding: 0 30rpx;
+  margin-top: -60rpx; /* 产生破局叠加感 */
+  z-index: 3;
+  position: relative;
+}
+
+.bento-card {
+  background-color: #ffffff;
+  border-radius: 40rpx;
+  padding: 48rpx 40rpx;
+  box-shadow: 0 20rpx 60rpx rgba(16, 185, 129, 0.06), 0 4rpx 16rpx rgba(0,0,0,0.02);
+  margin-bottom: 30rpx;
+}
+
+.hero-input-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  margin-bottom: 40rpx;
+}
+
+.card-title {
+  font-size: 44rpx;
+  font-weight: 900;
+  color: #111827;
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.card-subtitle {
+  font-size: 28rpx;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+/* 现代药丸式输入框组合 */
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.premium-input {
+  width: 100%;
+  height: 112rpx;
+  background-color: #F3F4F6;
+  border: 4rpx solid transparent;
+  border-radius: 56rpx; /* 大圆角 */
+  padding: 0 48rpx;
+  box-sizing: border-box;
+  font-size: 32rpx;
+  color: #111827;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.premium-input:focus {
+  background-color: #ffffff;
+  border-color: #10B981;
+  box-shadow: 0 0 0 8rpx rgba(16, 185, 129, 0.15);
+}
+
+.premium-placeholder {
+  color: #9CA3AF;
+  font-weight: normal;
+}
+
+.btn-generate-premium {
+  width: 100%;
+  height: 112rpx;
+  background: #111827; /* 深邃黑产生极致对比 */
+  color: #ffffff;
+  font-size: 34rpx;
+  font-weight: 800;
+  border-radius: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16rpx 32rpx rgba(17, 24, 39, 0.2);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-generate-premium:active {
+  transform: scale(0.96);
+  background: #1F2937;
+  box-shadow: 0 8rpx 16rpx rgba(17, 24, 39, 0.15);
+}
+
+/* --- 4. 底部功能区 Bento Layout --- */
+.features-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24rpx;
+}
+
+.feature-card {
+  background-color: #ffffff;
+  border-radius: 36rpx;
+  padding: 40rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 8rpx 30rpx rgba(16, 185, 129, 0.04);
+  transition: transform 0.2s ease;
+}
+
+.feature-card:active {
+  transform: scale(0.95);
+  background-color: #F9FAFB;
+}
+
+.feature-icon-wrapper {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24rpx;
+}
+
+.chat-icon-bg {
+  background: linear-gradient(135deg, #60A5FA, #3B82F6);
+  box-shadow: 0 8rpx 20rpx rgba(59, 130, 246, 0.2);
+}
+
+.checkin-icon-bg {
+  background: linear-gradient(135deg, #34D399, #10B981);
+  box-shadow: 0 8rpx 20rpx rgba(16, 185, 129, 0.2);
+}
+
+.feature-icon {
+  font-size: 48rpx;
+  color: #fff; /* 这里假设用 emoji，如果是文字可以设白 */
+}
+
+.feature-text-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-name {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 8rpx;
+}
+
+.feature-desc {
+  font-size: 24rpx;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+/* 动态加载动画覆盖层 */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spinner {
+  width: 80rpx;
+  height: 80rpx;
+  border: 8rpx solid #e8f9ed;
+  border-top-color: #34C759;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 40rpx;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 32rpx;
+  color: #333;
+  font-weight: bold;
+  letter-spacing: 2rpx;
+  animation: pulse 1.5s ease-in-out infinite;
+  text-align: center;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}

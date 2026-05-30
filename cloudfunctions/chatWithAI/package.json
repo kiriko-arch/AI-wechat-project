@@ -1,0 +1,10 @@
+{
+  "name": "chat-with-ai",
+  "version": "1.0.0",
+  "description": "调用智谱大模型进行多轮对话",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^1.15.1",
+    "wx-server-sdk": "~2.6.3"
+  }
+}

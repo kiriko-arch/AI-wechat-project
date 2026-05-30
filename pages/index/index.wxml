@@ -1,0 +1,93 @@
+<view class="container">
+  <!-- 顶部沉浸式背景区域 (Mesh Gradient) -->
+  <view class="hero-bg">
+    <!-- 青柠装饰图标保留 -->
+    <view class="lemon-decoration">
+      <view class="lemon-circle"></view>
+      <view class="lemon-leaf"></view>
+    </view>
+    <view class="blob blob-1"></view>
+    <view class="blob blob-2"></view>
+    <view class="blob blob-3"></view>
+    
+    <!-- 1. 顶部欢迎区 -->
+    <view class="header">
+      <text class="greeting">Hi，同学 👋</text>
+      <text class="sub-greeting">今天也要高效学习哦！</text>
+    </view>
+
+    <!-- 4. 玻璃拟态今日状态看板 -->
+    <view class="glass-status-bar">
+      <view class="status-item">
+        <text class="status-icon">🔥</text>
+        <view class="status-text-group">
+          <text class="status-val">{{studyDays}}</text>
+          <text class="status-label">坚持天数</text>
+        </view>
+      </view>
+      <view class="status-divider"></view>
+      <view class="status-item">
+        <text class="status-icon">🎯</text>
+        <view class="status-text-group">
+          <text class="status-val">{{completedCount}} / {{totalCount}}</text>
+          <text class="status-label">今日任务</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 内容区（紧贴 Hero 底部） -->
+  <view class="content-wrapper">
+    <!-- 2. 学习目标输入卡片（核心焦点） -->
+    <view class="bento-card hero-input-card">
+      <view class="card-header">
+        <text class="card-title">制定专属学习计划</text>
+        <text class="card-subtitle">AI 大脑为你量身规划每一天</text>
+      </view>
+      <view class="input-wrapper">
+        <input 
+          class="premium-input" 
+          placeholder="例如：七天英语四级突击" 
+          placeholder-class="premium-placeholder"
+          value="{{target}}"
+          bindinput="onInput" 
+        />
+        <view class="btn-generate-premium" bindtap="generatePlan">
+          <text>生成计划</text>
+          <text class="btn-icon">✨</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 3. 推荐功能区（Bento Grid 排版） -->
+    <view class="features-row">
+      <view class="feature-card" bindtap="goToChat">
+        <view class="feature-icon-wrapper chat-icon-bg">
+          <text class="feature-icon">🤖</text>
+        </view>
+        <view class="feature-text-group">
+          <text class="feature-name">AI学习问答</text>
+          <text class="feature-desc">随时解答疑惑</text>
+        </view>
+      </view>
+      
+      <view class="feature-card" bindtap="goToCheckin">
+        <view class="feature-icon-wrapper checkin-icon-bg">
+          <text class="feature-icon">✅</text>
+        </view>
+        <view class="feature-text-group">
+          <text class="feature-name">今日打卡</text>
+          <text class="feature-desc">记录点滴进步</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 动态加载动画覆盖层 -->
+  <view class="loading-overlay" wx:if="{{isGenerating}}">
+    <view class="loading-content">
+      <view class="spinner"></view>
+      <text class="loading-text">{{loadingMessages[loadingMessageIndex]}}</text>
+    </view>
+  </view>
+</view>

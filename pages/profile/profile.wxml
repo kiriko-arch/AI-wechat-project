@@ -1,0 +1,104 @@
+<view class="container">
+  <!-- 顶部玻璃拟态个人信息卡 (Glassmorphism VIP Card) -->
+  <view class="vip-glass-card">
+    <view class="vip-glow"></view>
+    <view class="vip-content">
+      <view class="vip-header">
+        <view class="avatar-placeholder">
+          <text class="avatar-text">Me</text>
+        </view>
+        <view class="badge-wrapper">
+          <text class="badge-title">{{badge}}</text>
+          <text class="badge-desc">当前学习称号</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 核心数据 Bento Grid -->
+  <view class="bento-grid">
+    <!-- 坚持天数模块 -->
+    <view class="bento-item bento-days">
+      <view class="bento-icon-box">
+        <text class="bento-icon">🔥</text>
+      </view>
+      <view class="bento-text-box">
+        <text class="bento-val">{{studyDays}}</text>
+        <text class="bento-label">坚持天数</text>
+      </view>
+    </view>
+    
+    <!-- 攻克任务模块 -->
+    <view class="bento-item bento-tasks">
+      <view class="bento-icon-box tasks-icon-box">
+        <text class="bento-icon">🎯</text>
+      </view>
+      <view class="bento-text-box">
+        <text class="bento-val">{{totalCompletedTasks}}</text>
+        <text class="bento-label">攻克任务</text>
+      </view>
+    </view>
+
+    <!-- 历史记录入口融入 Bento -->
+    <view class="bento-item bento-history" bindtap="goToHistory">
+      <view class="bento-history-content">
+        <text class="bento-history-title">历史档案</text>
+        <text class="bento-history-desc">查看所有计划与记录</text>
+      </view>
+      <view class="bento-arrow">
+        <text>→</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 近30天学习热力图 (Premium Dashboard Style) -->
+  <view class="premium-heatmap-card bento-heatmap">
+    <view class="heatmap-header">
+      <view class="heatmap-title-group">
+        <text class="heatmap-title">学习足迹</text>
+        <text class="heatmap-subtitle">近 30 天记录</text>
+      </view>
+      <view class="history-btn" bindtap="openHistoryModal">
+        <text class="history-icon">📅</text>
+        <text>往期回顾</text>
+      </view>
+    </view>
+
+    <view class="weekdays">
+      <text wx:for="{{['日','一','二','三','四','五','六']}}" wx:key="*this">{{item}}</text>
+    </view>
+    <view class="heatmap-grid">
+      <view wx:for="{{heatmapGrid}}" wx:key="index"
+            class="heatmap-cell {{item.empty ? 'empty-cell' : ''}} {{item.active ? 'active-cell' : 'inactive-cell'}} {{item.isToday ? 'today-cell' : ''}}">
+        <text wx:if="{{!item.empty}}" class="cell-date">{{item.day}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 历史记录入口已被融入 Bento Grid 中，删除原有的独立入口 -->
+
+  <!-- 往期回顾弹窗 -->
+  <view class="history-modal-mask {{showHistoryModal ? 'show' : ''}}" bindtap="closeHistoryModal">
+    <view class="history-modal-content {{showHistoryModal ? 'slide-up' : ''}}" catchtap="stopBubble">
+      <view class="modal-header">
+        <view class="month-switch-btn" bindtap="prevMonth">‹</view>
+        <view class="current-month-title">{{currentViewYear}}年{{currentViewMonth}}月</view>
+        <view class="month-switch-btn {{isCurrentMonth ? 'disabled' : ''}}" bindtap="nextMonth">›</view>
+      </view>
+      
+      <view class="weekdays modal-weekdays">
+        <text wx:for="{{['日','一','二','三','四','五','六']}}" wx:key="*this">{{item}}</text>
+      </view>
+      <view class="heatmap-grid modal-heatmap-grid">
+        <view wx:for="{{historyGrid}}" wx:key="index"
+              class="heatmap-cell {{item.empty ? 'empty-cell' : ''}} {{item.active ? 'active-cell' : 'inactive-cell'}} {{item.isToday ? 'today-cell' : ''}} {{item.isFuture ? 'future-cell' : ''}}">
+          <text wx:if="{{!item.empty}}" class="cell-date">{{item.day}}</text>
+        </view>
+      </view>
+
+      <view class="close-btn-wrapper">
+        <view class="close-btn" bindtap="closeHistoryModal">关闭</view>
+      </view>
+    </view>
+  </view>
+</view>

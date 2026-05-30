@@ -1,0 +1,225 @@
+.container {
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f9f8; /* 浅灰背景，让卡片更突出 */
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 占位页面标题或错误标题 */
+.page-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+  color: #333;
+  text-align: center;
+}
+
+/* 1. 标题和任务列表要明显区分，使用字体大小和颜色 */
+.plan-title {
+  font-size: 52rpx;
+  font-weight: 900;
+  color: #1a1a1a;
+  text-align: center;
+  margin-bottom: 50rpx;
+  margin-top: 20rpx;
+  line-height: 1.4;
+}
+
+.tip-text {
+  font-size: 32rpx;
+  color: #666;
+  text-align: center;
+  margin-top: 100rpx;
+}
+
+/* AI 生成的长文本展示样式（容错展示） */
+.plan-content {
+  font-size: 30rpx;
+  color: #444;
+  line-height: 1.8;
+  word-break: break-all;
+}
+
+/* --- 结构化数据的版块样式 --- */
+/* 4. 优化布局，避免内容重叠 */
+.section {
+  width: 100%;
+  margin-bottom: 40rpx;
+  background-color: #ffffff; /* 白色卡片 */
+  padding: 40rpx 30rpx;
+  border-radius: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04); /* 轻微阴影，提升质感 */
+  box-sizing: border-box;
+}
+
+/* 1. 标题区分 */
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #07c160; /* 微信绿主题色 */
+  margin-bottom: 36rpx;
+  display: flex;
+  align-items: center;
+}
+
+/* 标题左侧加个小竖线装饰 */
+.section-title::before {
+  content: "";
+  display: inline-block;
+  width: 8rpx;
+  height: 32rpx;
+  background-color: #07c160;
+  margin-right: 16rpx;
+  border-radius: 4rpx;
+}
+
+/* 2. 每个任务条目有清晰的边距，避免页面过于拥挤 */
+.task-item {
+  display: flex;
+  align-items: flex-start; /* 顶部对齐，防止多行文本错位 */
+  margin-bottom: 30rpx; /* 增大任务之间的间距 */
+  background-color: #fcfcfc; /* 任务加一点点底色，更容易区分 */
+  padding: 20rpx;
+  border-radius: 12rpx;
+}
+
+/* 任务最后一项去掉底部间距 */
+.task-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 顺序数字 */
+.task-index {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #07c160;
+  margin-right: 20rpx;
+  flex-shrink: 0; /* 防止数字被压缩 */
+}
+
+/* 任务文本 */
+.task-text {
+  font-size: 32rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+.resource-card {
+  padding: 24rpx;
+  border-radius: 18rpx;
+  background: linear-gradient(180deg, #f7fffb 0%, #ffffff 100%);
+  border: 1rpx solid #d9f3e6;
+  margin-bottom: 24rpx;
+}
+
+.resource-card:last-child {
+  margin-bottom: 0;
+}
+
+.resource-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.resource-type {
+  font-size: 24rpx;
+  color: #0f9d58;
+  background-color: #eaf8f0;
+  padding: 8rpx 16rpx;
+  border-radius: 999rpx;
+}
+
+.copy-btn {
+  margin: 0;
+  padding: 0 20rpx;
+  line-height: 1.8;
+  color: #0f9d58;
+  border-color: #0f9d58;
+}
+
+.resource-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #1f2937;
+  line-height: 1.5;
+  margin-bottom: 10rpx;
+}
+
+.resource-author {
+  font-size: 28rpx;
+  color: #4b5563;
+  margin-bottom: 12rpx;
+}
+
+.resource-reason {
+  font-size: 28rpx;
+  line-height: 1.7;
+  color: #374151;
+  margin-bottom: 12rpx;
+}
+
+.resource-url {
+  font-size: 24rpx;
+  color: #0f766e;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+/* 3. 复习建议部分要有足够的行距，保证用户能清晰阅读 */
+.suggestion-text {
+  font-size: 30rpx;
+  color: #555;
+  line-height: 2.0; /* 增大行距到 2.0，阅读更舒适 */
+  letter-spacing: 2rpx; /* 增加一点字间距 */
+  display: block; /* 保证段落换行 */
+  padding: 10rpx;
+}
+
+/* --- 底部操作栏（内联样式，随页面滚动） --- */
+.action-bar-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 20rpx;
+  margin-bottom: 40rpx;
+  padding: 0 10rpx;
+}
+
+.btn-discard {
+  width: 42%;
+  height: 96rpx;
+  background-color: #ffffff;
+  color: #ff4d4f;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid #ff4d4f;
+  box-shadow: 0 4rpx 12rpx rgba(255, 77, 79, 0.1);
+}
+
+.btn-apply {
+  width: 42%;
+  height: 96rpx;
+  background: linear-gradient(135deg, #4CD964, #34C759);
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: bold;
+  border-radius: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 20rpx rgba(52, 199, 89, 0.3);
+}
+
+.btn-discard:active, .btn-apply:active {
+  opacity: 0.8;
+  transform: scale(0.98);
+}
