@@ -34,12 +34,13 @@
 ```
 ## 展示图片
              首页（计划生成主页面）
-![首页 1](images/resized/home1.png)
+
+| ![首页 1](images/resized/home1.png) | ![首页 2](images/resized/home2.png) | ![首页 3](images/resized/home3.png) |
+| --- | --- | --- |
+| 首页主界面 | 计划详情 | 任务列表 |
+
 在输入框内输入学习目标和周期（例如：英语四级一个月冲刺）
 稍等片刻即会出现对应计划（包含：每周，每日，学习建议，b站视频链接）
-![首页 2](images/resized/home2.png)
-![首页 3](images/resized/home3.png)
-
 
 ## 许可
 
