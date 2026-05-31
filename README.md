@@ -34,14 +34,23 @@
 ```
 ## 展示图片
   首页（计划生成主页面）
-![首页 1](images/resized/home1.png)
+|![首页 1](images/resized/home1.png)|![首页 2](images/resized/home2.png)|![首页 3](images/resized/home3.png)
+| 首页主界面 | 学习锦囊 | 学习锦囊 |
 在输入框内输入学习目标和周期（例如：英语四级一个月冲刺）
 稍等片刻即会出现对应计划（包含：每周，每日，学习建议，b站视频链接）
 
-| ![截图 1](images/resized/home2.png) | ![截图 2](images/resized/home3.png) |
-| --- | --- |
-|   |   |
+打卡页（每日学习任务记录）
+| ![打卡 1](images/resized/plan1.png) | ![打卡 2](images/resized/plan2.png) | ![打卡 3](images/resized/plan3.png)
+| 每日打卡 | 学习锦囊 | 学习任务切换|
+勾选任务可以完成任务打卡，支持自定义新建or删除计划，支持多项学习任务打卡（上方滚轮切换）
 
+AI问答页（解决学习难题）
+![问答 1](images/resized/chat1.png)
+全能AI助手，可提问、练习、规划等
+
+我的页面
+![我的 1](images/resized/me1.png)
+查看打卡记录，学习记录以及学习等级提升，增加成就感
 ## 许可
 
 MIT
