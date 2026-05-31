@@ -19,7 +19,7 @@
 
 1. 克隆仓库
 2. 用微信开发者工具打开项目
-3. 在 `cloudfunctions/*/aiProvider.js` 中填入你自己的 API Key（制定计划只需填入getPlan中的deep seekAPI Key即可）
+3. 在 `cloudfunctions/*/aiProvider.js` 中填入你自己的 API Key（制定计划只需填入getPlan中的deep seek API Key即可）
 4. 上传并部署云函数
 
 ## 目录结构
@@ -33,14 +33,14 @@
 └── project.config.json # 项目配置（含 AppID）
 ```
 ## 展示图片
-             首页（计划生成主页面）
-
-| ![首页 1](images/resized/home1.png) | ![首页 2](images/resized/home2.png) | ![首页 3](images/resized/home3.png) |
-| --- | --- | --- |
-| 首页主界面 | 计划详情 | 任务列表 |
-
+  首页（计划生成主页面）
+![首页 1](images/resized/home1.png)
 在输入框内输入学习目标和周期（例如：英语四级一个月冲刺）
 稍等片刻即会出现对应计划（包含：每周，每日，学习建议，b站视频链接）
+
+| ![截图 1](images/resized/home2.png) | ![截图 2](images/resized/home3.png) |
+| --- | --- |
+|   |   |
 
 ## 许可
 
